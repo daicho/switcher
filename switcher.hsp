@@ -1,0 +1,20 @@
+#uselib "user32.dll"
+	#cfunc GetDC "GetDC" int
+
+#uselib "gdi32.dll"
+	#cfunc CreateDC "CreateDCA" sptr, sptr, sptr, int
+	#func DeleteDC "DeleteDC" int
+	#func BitBlt "BitBlt" int, int, int, int, int, int, int, int, int
+
+	screen 1, ginfo_dispx, ginfo_dispy
+
+	hdcScreen = GetDC(0x00060CD4)
+
+	repeat
+		BitBlt hdc, 0, 0, ginfo_dispx, ginfo_dispy, hdcScreen, 0, 0, 0x00CC0020 | 0x40000000
+		redraw
+		//bmpsave dir_cur + "\\スクリーンショット\\" + gettime(4) + "." + gettime(5) + ".bmp"
+		await 16
+	loop
+
+	DeleteDC hdcScreen
