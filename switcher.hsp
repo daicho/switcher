@@ -1,20 +1,120 @@
 #uselib "user32.dll"
 	#cfunc GetDC "GetDC" int
+	#func GetClientRect "GetClientRect" int, int
 
 #uselib "gdi32.dll"
 	#cfunc CreateDC "CreateDCA" sptr, sptr, sptr, int
 	#func DeleteDC "DeleteDC" int
 	#func BitBlt "BitBlt" int, int, int, int, int, int, int, int, int
+	#func StretchBlt "StretchBlt" int, int,int, int, int, int, int, int, int, int, int
 
-	screen 1, ginfo_dispx, ginfo_dispy
+#define ASPECT (4.0 / 3.0)
 
-	hdcScreen = GetDC(0x00060CD4)
+#enum WIN_SW = 0
+#enum WIN_BUF1
+#enum WIN_BUF2
+#enum WIN_BUF3
+#enum WIN_OUT1
+#enum WIN_OUT2
 
+	dim rect, 4
+	dimtype cur_aspect, vartype("double")
+
+	dim target_hwnd, 3
+	dim target_dc, 3
+	dim target_w, 3
+	dim target_h, 3
+
+	dim out_dc, 2
+	dim status, 2
+
+	target_hwnd(0) = 0x00150FCE
+	target_hwnd(1) = 0x0023091A
+	target_hwnd(2) = 0x000D0AC2
+
+	repeat 3
+		target_dc(cnt) = GetDC(target_hwnd(cnt))
+		GetClientRect target_hwnd(cnt), varptr(rect)
+		target_w(cnt) = rect(2)
+		target_h(cnt) = rect(3)
+	loop
+
+	status(0) = 0
+	status(1) = 1
+
+	// 操作ウィンドウ
+	screen WIN_SW
+
+	// バッファウィンドウ
+	buffer WIN_BUF1, target_w(0), target_h(0)
+	buffer WIN_BUF2, target_w(1), target_h(1)
+	buffer WIN_BUF3, target_w(2), target_h(2)
+
+	// 出力ウィンドウ
+	bgscr WIN_OUT1, ginfo_dispx, ginfo_dispy
+	out_dc(0) = hdc
+	bgscr WIN_OUT2, ginfo_dispx, ginfo_dispy
+	out_dc(1) = hdc
+
+	// ボタン描画
+	gsel WIN_SW
+	button gosub "系統1-1", *sw1_1
+	button gosub "系統1-2", *sw1_2
+	button gosub "系統1-3", *sw1_3
+	button gosub "系統2-1", *sw2_1
+	button gosub "系統2-2", *sw2_2
+	button gosub "系統2-3", *sw2_3
+
+	// 動画再生
 	repeat
-		BitBlt hdc, 0, 0, ginfo_dispx, ginfo_dispy, hdcScreen, 0, 0, 0x00CC0020 | 0x40000000
-		redraw
-		//bmpsave dir_cur + "\\スクリーンショット\\" + gettime(4) + "." + gettime(5) + ".bmp"
-		await 16
+		repeat 2
+			// 操作ウィンドウ選択
+			if cnt = 0: gsel WIN_OUT1: else: gsel WIN_OUT2
+			
+			redraw 0
+
+			// 背景消去
+			color 255, 255, 255
+			boxf
+
+			// アスペクト比
+			cur_aspect = double(target_w(status(cnt))) / target_h(status(cnt))
+
+			// 画面出力
+			if (cur_aspect < ASPECT) {
+				StretchBlt out_dc(cnt), double(ginfo_dispx) / 2 - double(ginfo_dispy) * cur_aspect / 2, 0, double(ginfo_dispy) * cur_aspect, ginfo_dispy, target_dc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
+			} else {
+				StretchBlt out_dc(cnt), 0, double(ginfo_dispy) / 2 - double(ginfo_dispx) / cur_aspect / 2, ginfo_dispx, double(ginfo_dispx) / cur_aspect, target_dc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
+			}
+
+			redraw 1
+		loop
+
+		await 33
 	loop
 
 	DeleteDC hdcScreen
+
+*sw1_1
+	status(0) = 0
+	return
+
+*sw1_2
+	status(0) = 1
+	return
+
+*sw1_3
+	status(0) = 2
+	return
+
+*sw2_1
+	status(1) = 0
+	return
+
+*sw2_2
+	status(1) = 1
+	return
+
+*sw2_3
+	status(1) = 2
+	return
