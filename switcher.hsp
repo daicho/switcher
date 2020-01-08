@@ -1,6 +1,9 @@
 #uselib "user32.dll"
 	#cfunc GetDC "GetDC" int
 	#func GetClientRect "GetClientRect" int, int
+	#func SetWindowLong "SetWindowLongA" int, int, int
+	#func GetCursorPos "GetCursorPos" int
+	#cfunc WindowFromPoint "WindowFromPoint" int, int
 
 #uselib "gdi32.dll"
 	#cfunc CreateDC "CreateDCA" sptr, sptr, sptr, int
@@ -8,15 +11,19 @@
 	#func BitBlt "BitBlt" int, int, int, int, int, int, int, int, int
 	#func StretchBlt "StretchBlt" int, int,int, int, int, int, int, int, int, int, int
 
+#packopt name "switcher"
+#packopt hide 1
+
 #define ASPECT (4.0 / 3.0)
 
-#enum WIN_SW = 0
+#enum WIN_SW = 1
 #enum WIN_BUF1
 #enum WIN_BUF2
 #enum WIN_BUF3
 #enum WIN_OUT1
 #enum WIN_OUT2
 
+	dim mousexy, 2
 	dim rect, 4
 	dimtype cur_aspect, vartype("double")
 
@@ -25,25 +32,43 @@
 	dim target_w, 3
 	dim target_h, 3
 
+	dim win_id, 2
 	dim out_dc, 2
 	dim status, 2
 
-	target_hwnd(0) = 0x00150FCE
-	target_hwnd(1) = 0x0023091A
-	target_hwnd(2) = 0x000D0AC2
-
-	repeat 3
-		target_dc(cnt) = GetDC(target_hwnd(cnt))
-		GetClientRect target_hwnd(cnt), varptr(rect)
-		target_w(cnt) = rect(2)
-		target_h(cnt) = rect(3)
-	loop
+	win_id(0) = WIN_OUT1
+	win_id(1) = WIN_OUT2
 
 	status(0) = 0
 	status(1) = 1
 
 	// 操作ウィンドウ
 	screen WIN_SW
+
+	repeat 3
+		cls
+		mes "入力" + (cnt + 1)
+		mes "(Ctrlで確定)"
+
+		repeat
+			// Ctrlを押すまで待機
+			stick key, 0, 0
+			if (key & 64): break
+			await 10
+		loop
+
+		// マウスカーソル下のウィンドウを登録
+		GetCursorPos varptr(mousexy)
+		target_hwnd(cnt) = WindowFromPoint(mousexy(0), mousexy(1))
+	loop
+
+	// デバイスコンテキスト等を取得
+	repeat 3
+		target_dc(cnt) = GetDC(target_hwnd(cnt))
+		GetClientRect target_hwnd(cnt), varptr(rect)
+		target_w(cnt) = rect(2)
+		target_h(cnt) = rect(3)
+	loop
 
 	// バッファウィンドウ
 	buffer WIN_BUF1, target_w(0), target_h(0)
@@ -69,7 +94,7 @@
 	repeat
 		repeat 2
 			// 操作ウィンドウ選択
-			if cnt = 0: gsel WIN_OUT1: else: gsel WIN_OUT2
+			gsel win_id(cnt)
 			
 			redraw 0
 
