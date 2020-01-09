@@ -375,6 +375,7 @@
 			boxf WIN_WIDTH / 3 * (status(cnt) + 1) - 20 - (1 - cnt) * 20, 0, WIN_WIDTH / 3 * (status(cnt) + 1)- (1 - cnt) * 20, 20
 			pos WIN_WIDTH / 3 * (status(cnt) + 1) - 15 - (1 - cnt) * 20, 0
 			color 255, 255, 255
+			font "ÇlÇr ÉSÉVÉbÉN", 14,1
 			mes dispnum(cnt)
 		loop
 		redraw 1
