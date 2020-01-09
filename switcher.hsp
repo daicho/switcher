@@ -53,6 +53,12 @@
 	dim target_hdc, 3
 	dim target_w, 3
 	dim target_h, 3
+	dim out_w, 2
+	dim out_h, 2
+
+	// o—Í‰æ–Ê‚ÌƒTƒCƒY
+	out_w = 800, 800
+	out_h = 600, 600
 
 	sdim dispnum, 3, 9
 	dispnum = "‡@", "‡A", "‡B", "‡C", "‡D", "‡E", "‡F", "‡G", "‡H"
@@ -114,9 +120,9 @@
 	buffer WIN_BUF3, target_w(2), target_h(2)
 
 	// o—ÍƒEƒBƒ“ƒhƒE
-	bgscr WIN_OUT1, ginfo_dispx, ginfo_dispy
+	bgscr WIN_OUT1, out_w(0), out_h(0)
 	out_hdc(0) = hdc
-	bgscr WIN_OUT2, ginfo_dispx, ginfo_dispy
+	bgscr WIN_OUT2, out_w(1), out_h(1)
 	out_hdc(1) = hdc
 
 	// ƒ{ƒ^ƒ“•`‰æ
@@ -396,9 +402,9 @@
 
 				// ‰æ–Êo—Í
 				if (cur_aspect < ASPECT) {
-					StretchBlt out_hdc(cnt), double(ginfo_dispx) / 2 - cur_aspect * ginfo_dispy / 2, 0, cur_aspect * ginfo_dispy, ginfo_dispy, target_hdc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
+					StretchBlt out_hdc(cnt), double(out_w(cnt)) / 2 - cur_aspect * out_h(cnt) / 2, 0, cur_aspect * out_h(cnt), out_h(cnt), target_hdc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
 				} else {
-					StretchBlt out_hdc(cnt), 0, double(ginfo_dispy) / 2 - double(ginfo_dispx) / cur_aspect / 2, ginfo_dispx, double(ginfo_dispx) / cur_aspect, target_hdc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
+					StretchBlt out_hdc(cnt), 0, double(out_h(cnt)) / 2 - double(out_w(cnt)) / cur_aspect / 2, out_w(cnt), double(out_w(cnt)) / cur_aspect, target_hdc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
 				}
 			}
 
