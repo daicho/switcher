@@ -14,12 +14,14 @@
 
 #packopt name "switcher"
 
-#define WS_CHILD   0x40000000
-#define WS_VISIBLE 0x10000000
-#define WS_GROUP   0x00020000
+#define WS_CHILD           0x40000000
+#define WS_VISIBLE         0x10000000
+#define WS_GROUP           0x00020000
 #define BS_AUTORADIOBUTTON 0x00000009
+#define WM_NCLBUTTONDOWN   0x000000A1
+#define HTCAPTION          0x00000002
 
-#define ASPECT (4.0 / 3.0)
+#define ASPECT     (4.0 / 3.0)
 #define WIN_WIDTH  1440
 #define WIN_HEIGHT 550
 
@@ -65,6 +67,7 @@
 
 	dim win_id, 2
 	dim win_hdc
+	dim out_hwnd, 2
 	dim out_hdc, 2
 	dim status, 2
 
@@ -121,9 +124,14 @@
 
 	// 出力ウィンドウ
 	bgscr WIN_OUT1, out_w(0), out_h(0)
+	out_hwnd(0) = hwnd
 	out_hdc(0) = hdc
+	onclick gosub *move1
+
 	bgscr WIN_OUT2, out_w(1), out_h(1)
+	out_hwnd(1) = hwnd
 	out_hdc(1) = hdc
+	onclick gosub *move2
 
 	// ボタン描画
 	gsel WIN_SW
@@ -362,7 +370,7 @@
 			cur_aspect = double(target_w(cnt)) / target_h(cnt)
 			
 			if (cur_aspect < ASPECT) {
-				StretchBlt win_hdc, WIN_WIDTH / 6 * (cnt * 2 + 1) - cur_aspect * ASPECT * WIN_WIDTH / 6, 0, cur_aspect * double(WIN_WIDTH) / 3 / ASPECT, double(WIN_WIDTH) / 3 / ASPECT, target_hdc(cnt), 0, 0, target_w(cnt), target_h(cnt), 0x00CC0020 | 0x40000000
+				StretchBlt win_hdc, WIN_WIDTH / 6 * (cnt * 2 + 1) - cur_aspect * WIN_WIDTH / ASPECT / 6, 0, cur_aspect * double(WIN_WIDTH) / 3 / ASPECT, double(WIN_WIDTH) / 3 / ASPECT, target_hdc(cnt), 0, 0, target_w(cnt), target_h(cnt), 0x00CC0020 | 0x40000000
 			} else {
 				StretchBlt win_hdc, WIN_WIDTH / 3 * cnt, (1.0 / ASPECT - 1.0 / cur_aspect) * WIN_WIDTH / 6, WIN_WIDTH / 3, double(WIN_WIDTH) / 3 / cur_aspect, target_hdc(cnt), 0, 0, target_w(cnt), target_h(cnt), 0x00CC0020 | 0x40000000
 			}
@@ -381,7 +389,7 @@
 			boxf WIN_WIDTH / 3 * (status(cnt) + 1) - 20 - (1 - cnt) * 20, 0, WIN_WIDTH / 3 * (status(cnt) + 1)- (1 - cnt) * 20, 20
 			pos WIN_WIDTH / 3 * (status(cnt) + 1) - 15 - (1 - cnt) * 20, 0
 			color 255, 255, 255
-			font "ＭＳ ゴシック", 14,1
+			font msgothic, 14, 1
 			mes dispnum(cnt)
 		loop
 		redraw 1
@@ -413,3 +421,15 @@
 
 		await 33
 	loop
+
+*move1
+	if (wparam == 1) {
+		sendmsg out_hwnd(0), WM_NCLBUTTONDOWN, HTCAPTION, 0
+	}
+	return
+
+*move2
+	if (wparam == 1) {
+		sendmsg out_hwnd(1), WM_NCLBUTTONDOWN, HTCAPTION, 0
+	}
+	return
