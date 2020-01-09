@@ -1,15 +1,16 @@
 #uselib "user32.dll"
 	#cfunc GetDC "GetDC" int
-	#func GetClientRect "GetClientRect" int, int
-	#func SetWindowLong "SetWindowLongA" int, int, int
-	#func GetCursorPos "GetCursorPos" int
+	#func  ReleaseDC "ReleaseDC" int
+	#func  GetClientRect "GetClientRect" int, int
+	#func  SetWindowLong "SetWindowLongA" int, int, int
+	#func  GetCursorPos "GetCursorPos" int
 	#cfunc WindowFromPoint "WindowFromPoint" int, int
+	#func  GetWindowText "GetWindowTextA" int, int, int
+	#func  DrawFocusRect "DrawFocusRect" int, int
+	#func  InvertRect "InvertRect" int, int
 
 #uselib "gdi32.dll"
-	#cfunc CreateDC "CreateDCA" sptr, sptr, sptr, int
-	#func DeleteDC "DeleteDC" int
-	#func BitBlt "BitBlt" int, int, int, int, int, int, int, int, int
-	#func StretchBlt "StretchBlt" int, int,int, int, int, int, int, int, int, int, int
+	#func  StretchBlt "StretchBlt" int, int,int, int, int, int, int, int, int, int, int
 
 #packopt name "switcher"
 #packopt hide 1
@@ -25,15 +26,18 @@
 
 	dim mousexy, 2
 	dim rect, 4
+	dim p_hwnd
+	dim p_hdc
+	sdim cur_title, 256
 	dimtype cur_aspect, vartype("double")
 
 	dim target_hwnd, 3
-	dim target_dc, 3
+	dim target_hdc, 3
 	dim target_w, 3
 	dim target_h, 3
 
 	dim win_id, 2
-	dim out_dc, 2
+	dim out_hdc, 2
 	dim status, 2
 
 	win_id(0) = WIN_OUT1
@@ -44,27 +48,64 @@
 
 	// 操作ウィンドウ
 	screen WIN_SW
+	gsel WIN_SW, 2
 
 	repeat 3
-		cls
-		mes "入力" + (cnt + 1)
-		mes "(Ctrlで確定)"
+		i = cnt
+		p_hwnd = 0
 
 		repeat
-			// Ctrlを押すまで待機
+			redraw 0
+			
+			color 255, 255, 255
+			boxf
+			color 0, 0, 0
+			pos 0, 0
+			mes "入力" + (i + 1)
+			mes "(Ctrlで確定)"
+			mes ""
+
+			// マウスカーソル下のウィンドウを取得
+			GetCursorPos varptr(mousexy)
+			target_hwnd(i) = WindowFromPoint(mousexy(0), mousexy(1))
+			target_hdc(i) = GetDC(target_hwnd(i))
+			GetWindowText target_hwnd(i), varptr(cur_title), 256
+
+			// 枠線を描画
+			if (target_hwnd(i) != p_hwnd) {
+				// 前の枠線を消す
+				if (p_hwnd) {
+					GetClientRect p_hwnd, varptr(rect)
+					DrawFocusRect p_hdc, varptr(rect)
+				}
+
+				// 枠線を描画
+				if (target_hwnd(i)) {
+					GetClientRect target_hwnd(i), varptr(rect)
+					DrawFocusRect target_hdc(i), varptr(rect)
+				}
+
+				// 前回の情報を保持
+				p_hwnd = target_hwnd(i)
+				p_hdc = target_hdc(i)
+			}
+
+			mes "" + mousexy(0) + ", " + mousexy(1)
+			mes cur_title
+
+			redraw 1
+
+			// Ctrlが押されたら確定
 			stick key, 0, 0
 			if (key & 64): break
 			await 10
+
+			ReleaseDC target_hdc(i)
 		loop
 
-		// マウスカーソル下のウィンドウを登録
-		GetCursorPos varptr(mousexy)
-		target_hwnd(cnt) = WindowFromPoint(mousexy(0), mousexy(1))
-	loop
-
-	// デバイスコンテキスト等を取得
-	repeat 3
-		target_dc(cnt) = GetDC(target_hwnd(cnt))
+		// ウィンドウを登録
+		target_hwnd(cnt) = cur_hwnd
+		target_hdc(cnt) = GetDC(target_hwnd(cnt))
 		GetClientRect target_hwnd(cnt), varptr(rect)
 		target_w(cnt) = rect(2)
 		target_h(cnt) = rect(3)
@@ -77,9 +118,9 @@
 
 	// 出力ウィンドウ
 	bgscr WIN_OUT1, ginfo_dispx, ginfo_dispy
-	out_dc(0) = hdc
+	out_hdc(0) = hdc
 	bgscr WIN_OUT2, ginfo_dispx, ginfo_dispy
-	out_dc(1) = hdc
+	out_hdc(1) = hdc
 
 	// ボタン描画
 	gsel WIN_SW
@@ -107,9 +148,9 @@
 
 			// 画面出力
 			if (cur_aspect < ASPECT) {
-				StretchBlt out_dc(cnt), double(ginfo_dispx) / 2 - double(ginfo_dispy) * cur_aspect / 2, 0, double(ginfo_dispy) * cur_aspect, ginfo_dispy, target_dc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
+				StretchBlt out_hdc(cnt), double(ginfo_dispx) / 2 - double(ginfo_dispy) * cur_aspect / 2, 0, double(ginfo_dispy) * cur_aspect, ginfo_dispy, target_hdc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
 			} else {
-				StretchBlt out_dc(cnt), 0, double(ginfo_dispy) / 2 - double(ginfo_dispx) / cur_aspect / 2, ginfo_dispx, double(ginfo_dispx) / cur_aspect, target_dc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
+				StretchBlt out_hdc(cnt), 0, double(ginfo_dispy) / 2 - double(ginfo_dispx) / cur_aspect / 2, ginfo_dispx, double(ginfo_dispx) / cur_aspect, target_hdc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
 			}
 
 			redraw 1
@@ -117,8 +158,6 @@
 
 		await 33
 	loop
-
-	DeleteDC hdcScreen
 
 *sw1_1
 	status(0) = 0
