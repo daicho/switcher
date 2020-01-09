@@ -119,141 +119,141 @@
 	// ƒ{ƒ^ƒ“•`‰æ
 	gsel WIN_SW
 
-	objsize WIN_WIDTH / 3 - 50, 50
+	objsize WIN_WIDTH / 3 - 20, 50
 	
-	pos WIN_WIDTH / 6 * 1 - WIN_WIDTH / 6 + 25, 275
+	pos WIN_WIDTH / 6 * 1 - WIN_WIDTH / 6 + 10, 300
 	chkbox "A", chk
 	objprm stat, 1
 	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
 	
-	pos WIN_WIDTH / 6 * 3 - WIN_WIDTH / 6 + 25, 275
+	pos WIN_WIDTH / 6 * 3 - WIN_WIDTH / 6 + 10, 300
 	chkbox "B", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
-	pos WIN_WIDTH / 6 * 5 - WIN_WIDTH / 6 + 25, 275
+	pos WIN_WIDTH / 6 * 5 - WIN_WIDTH / 6 + 10, 300
 	chkbox "C", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
-	objsize 50, 50
+	objsize WIN_WIDTH / 12 - 20, 50
 	
-	pos WIN_WIDTH / 12 * 0, 350
+	pos WIN_WIDTH / 12 * 0 + 10, 360
 	chkbox "1", chk
 	objprm stat, 1
 	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
 	
-	pos WIN_WIDTH / 12 * 1, 350
+	pos WIN_WIDTH / 12 * 1 + 10, 360
 	chkbox "2", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
-	pos WIN_WIDTH / 12 * 2, 350
+	pos WIN_WIDTH / 12 * 2 + 10, 360
 	chkbox "3", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 12 * 3, 350
+	pos WIN_WIDTH / 12 * 3 + 10, 360
 	chkbox "ˆÃ“]", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 12 * 0, 425
+	pos WIN_WIDTH / 12 * 0 + 10, 420
 	chkbox "1", chk
 	objprm stat, 1
 	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
 	
-	pos WIN_WIDTH / 12 * 1, 425
+	pos WIN_WIDTH / 12 * 1 + 10, 420
 	chkbox "2", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
-	pos WIN_WIDTH / 12 * 2, 425
+	pos WIN_WIDTH / 12 * 2 + 10, 420
 	chkbox "3", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 12 * 3, 425
+	pos WIN_WIDTH / 12 * 3 + 10, 420
 	chkbox "ˆÃ“]", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 12 * 4, 350
+	pos WIN_WIDTH / 12 * 4 + 10, 360
 	chkbox "1", chk
 	objprm stat, 1
 	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
 	
-	pos WIN_WIDTH / 12 * 5, 350
+	pos WIN_WIDTH / 12 * 5 + 10, 360
 	chkbox "2", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
-	pos WIN_WIDTH / 12 * 6, 350
+	pos WIN_WIDTH / 12 * 6 + 10, 360
 	chkbox "3", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 12 * 7, 350
+	pos WIN_WIDTH / 12 * 7 + 10, 360
 	chkbox "ˆÃ“]", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 12 * 4, 425
+	pos WIN_WIDTH / 12 * 4 + 10, 420
 	chkbox "1", chk
 	objprm stat, 1
 	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
 	
-	pos WIN_WIDTH / 12 * 5, 425
+	pos WIN_WIDTH / 12 * 5 + 10, 420
 	chkbox "2", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
-	pos WIN_WIDTH / 12 * 6, 425
+	pos WIN_WIDTH / 12 * 6 + 10, 420
 	chkbox "3", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 12 * 7, 425
+	pos WIN_WIDTH / 12 * 7 + 10, 420
 	chkbox "ˆÃ“]", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 12 * 8, 350
+	pos WIN_WIDTH / 12 * 8 + 10, 360
 	chkbox "1", chk
 	objprm stat, 1
 	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
 	
-	pos WIN_WIDTH / 12 * 9, 350
+	pos WIN_WIDTH / 12 * 9 + 10, 360
 	chkbox "2", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
-	pos WIN_WIDTH / 12 * 10, 350
+	pos WIN_WIDTH / 12 * 10 + 10, 360
 	chkbox "3", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 12 * 11, 350
+	pos WIN_WIDTH / 12 * 11 + 10, 360
 	chkbox "ˆÃ“]", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 12 * 8, 425
+	pos WIN_WIDTH / 12 * 8 + 10, 420
 	chkbox "1", chk
 	objprm stat, 1
 	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
 	
-	pos WIN_WIDTH / 12 * 9, 425
+	pos WIN_WIDTH / 12 * 9 + 10, 420
 	chkbox "2", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
-	pos WIN_WIDTH / 12 * 10, 425
+	pos WIN_WIDTH / 12 * 10 + 10, 420
 	chkbox "3", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 12 * 11, 425
+	pos WIN_WIDTH / 12 * 11 + 10, 420
 	chkbox "ˆÃ“]", chk
 	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
