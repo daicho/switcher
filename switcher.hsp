@@ -43,9 +43,11 @@
 	dim chk_1_1
 	dim chk_1_2
 	dim chk_1_3
+	dim chk_1_4
 	dim chk_2_1
 	dim chk_2_2
 	dim chk_2_3
+	dim chk_2_4
 
 	dim target_hwnd, 3
 	dim target_hdc, 3
@@ -121,88 +123,139 @@
 	
 	pos WIN_WIDTH / 6 * 1 - WIN_WIDTH / 6 + 25, 275
 	chkbox "A", chk
+	objprm stat, 1
 	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
 	
 	pos WIN_WIDTH / 6 * 3 - WIN_WIDTH / 6 + 25, 275
 	chkbox "B", chk
+	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
 	pos WIN_WIDTH / 6 * 5 - WIN_WIDTH / 6 + 25, 275
 	chkbox "C", chk
+	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
 	objsize 50, 50
 	
-	pos WIN_WIDTH / 9 * 0, 350
+	pos WIN_WIDTH / 12 * 0, 350
 	chkbox "1", chk
+	objprm stat, 1
 	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
 	
-	pos WIN_WIDTH / 9 * 1, 350
+	pos WIN_WIDTH / 12 * 1, 350
 	chkbox "2", chk
+	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
-	pos WIN_WIDTH / 9 * 2, 350
+	pos WIN_WIDTH / 12 * 2, 350
 	chkbox "3", chk
+	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 9 * 0, 425
-	chkbox "1", chk
-	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
-	
-	pos WIN_WIDTH / 9 * 1, 425
-	chkbox "2", chk
-	sendmsg objinfo(stat, 2), $F4, $9
-	
-	pos WIN_WIDTH / 9 * 2, 425
-	chkbox "3", chk
+	pos WIN_WIDTH / 12 * 3, 350
+	chkbox "à√ì]", chk
+	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 9 * 3, 350
+	pos WIN_WIDTH / 12 * 0, 425
 	chkbox "1", chk
+	objprm stat, 1
 	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
 	
-	pos WIN_WIDTH / 9 * 4, 350
+	pos WIN_WIDTH / 12 * 1, 425
 	chkbox "2", chk
+	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
-	pos WIN_WIDTH / 9 * 5, 350
+	pos WIN_WIDTH / 12 * 2, 425
 	chkbox "3", chk
+	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 9 * 3, 425
-	chkbox "1", chk
-	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
-	
-	pos WIN_WIDTH / 9 * 4, 425
-	chkbox "2", chk
-	sendmsg objinfo(stat, 2), $F4, $9
-	
-	pos WIN_WIDTH / 9 * 5, 425
-	chkbox "3", chk
+	pos WIN_WIDTH / 12 * 3, 425
+	chkbox "à√ì]", chk
+	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 9 * 6, 350
+	pos WIN_WIDTH / 12 * 4, 350
 	chkbox "1", chk
+	objprm stat, 1
 	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
 	
-	pos WIN_WIDTH / 9 * 7, 350
+	pos WIN_WIDTH / 12 * 5, 350
 	chkbox "2", chk
+	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
-	pos WIN_WIDTH / 9 * 8, 350
+	pos WIN_WIDTH / 12 * 6, 350
 	chkbox "3", chk
+	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
-	pos WIN_WIDTH / 9 * 6, 425
+	pos WIN_WIDTH / 12 * 7, 350
+	chkbox "à√ì]", chk
+	objprm stat, 0
+	sendmsg objinfo(stat, 2), $F4, $9
+
+	pos WIN_WIDTH / 12 * 4, 425
 	chkbox "1", chk
+	objprm stat, 1
 	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
 	
-	pos WIN_WIDTH / 9 * 7, 425
+	pos WIN_WIDTH / 12 * 5, 425
 	chkbox "2", chk
+	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 	
-	pos WIN_WIDTH / 9 * 8, 425
+	pos WIN_WIDTH / 12 * 6, 425
 	chkbox "3", chk
+	objprm stat, 0
+	sendmsg objinfo(stat, 2), $F4, $9
+
+	pos WIN_WIDTH / 12 * 7, 425
+	chkbox "à√ì]", chk
+	objprm stat, 0
+	sendmsg objinfo(stat, 2), $F4, $9
+
+	pos WIN_WIDTH / 12 * 8, 350
+	chkbox "1", chk
+	objprm stat, 1
+	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
+	
+	pos WIN_WIDTH / 12 * 9, 350
+	chkbox "2", chk
+	objprm stat, 0
+	sendmsg objinfo(stat, 2), $F4, $9
+	
+	pos WIN_WIDTH / 12 * 10, 350
+	chkbox "3", chk
+	objprm stat, 0
+	sendmsg objinfo(stat, 2), $F4, $9
+
+	pos WIN_WIDTH / 12 * 11, 350
+	chkbox "à√ì]", chk
+	objprm stat, 0
+	sendmsg objinfo(stat, 2), $F4, $9
+
+	pos WIN_WIDTH / 12 * 8, 425
+	chkbox "1", chk
+	objprm stat, 1
+	SetWindowLong objinfo(stat, 2), -16, WS_CHILD | WS_VISIBLE | WS_GROUP | BS_AUTORADIOBUTTON
+	
+	pos WIN_WIDTH / 12 * 9, 425
+	chkbox "2", chk
+	objprm stat, 0
+	sendmsg objinfo(stat, 2), $F4, $9
+	
+	pos WIN_WIDTH / 12 * 10, 425
+	chkbox "3", chk
+	objprm stat, 0
+	sendmsg objinfo(stat, 2), $F4, $9
+
+	pos WIN_WIDTH / 12 * 11, 425
+	chkbox "à√ì]", chk
+	objprm stat, 0
 	sendmsg objinfo(stat, 2), $F4, $9
 
 	// ìÆâÊçƒê∂
@@ -235,41 +288,53 @@
 			chk_1_2 = stat
 			sendmsg objinfo(5, 2), $F0
 			chk_1_3 = stat
-			
 			sendmsg objinfo(6, 2), $F0
-			chk_2_1 = stat
+			chk_1_4 = stat
+			
 			sendmsg objinfo(7, 2), $F0
-			chk_2_2 = stat
+			chk_2_1 = stat
 			sendmsg objinfo(8, 2), $F0
-			chk_2_3 = stat
-		} else: if (chk_b) {
+			chk_2_2 = stat
 			sendmsg objinfo(9, 2), $F0
-			chk_1_1 = stat
+			chk_2_3 = stat
 			sendmsg objinfo(10, 2), $F0
-			chk_1_2 = stat
+			chk_2_4 = stat
+		} else: if (chk_b) {
 			sendmsg objinfo(11, 2), $F0
-			chk_1_3 = stat
-			
-			sendmsg objinfo(12, 2), $F0
-			chk_2_1 = stat
-			sendmsg objinfo(13, 2), $F0
-			chk_2_2 = stat
-			sendmsg objinfo(14, 2), $F0
-			chk_2_3 = stat
-		} else: if (chk_c) {
-			sendmsg objinfo(15, 2), $F0
 			chk_1_1 = stat
-			sendmsg objinfo(16, 2), $F0
+			sendmsg objinfo(12, 2), $F0
 			chk_1_2 = stat
-			sendmsg objinfo(17, 2), $F0
+			sendmsg objinfo(13, 2), $F0
 			chk_1_3 = stat
+			sendmsg objinfo(14, 2), $F0
+			chk_1_4 = stat
 			
-			sendmsg objinfo(18, 2), $F0
+			sendmsg objinfo(15, 2), $F0
 			chk_2_1 = stat
-			sendmsg objinfo(19, 2), $F0
+			sendmsg objinfo(16, 2), $F0
 			chk_2_2 = stat
-			sendmsg objinfo(20, 2), $F0
+			sendmsg objinfo(17, 2), $F0
 			chk_2_3 = stat
+			sendmsg objinfo(18, 2), $F0
+			chk_2_4 = stat
+		} else: if (chk_c) {
+			sendmsg objinfo(19, 2), $F0
+			chk_1_1 = stat
+			sendmsg objinfo(20, 2), $F0
+			chk_1_2 = stat
+			sendmsg objinfo(21, 2), $F0
+			chk_1_3 = stat
+			sendmsg objinfo(22, 2), $F0
+			chk_1_4 = stat
+			
+			sendmsg objinfo(23, 2), $F0
+			chk_2_1 = stat
+			sendmsg objinfo(24, 2), $F0
+			chk_2_2 = stat
+			sendmsg objinfo(25, 2), $F0
+			chk_2_3 = stat
+			sendmsg objinfo(26, 2), $F0
+			chk_2_4 = stat
 		}
 
 		if (chk_1_1) {
@@ -278,6 +343,8 @@
 			status(0) = 1
 		} else: if (chk_1_3) {
 			status(0) = 2
+		} else: if (chk_1_4) {
+			status(0) = 3
 		}
 
 		if (chk_2_1) {
@@ -286,6 +353,8 @@
 			status(1) = 1
 		} else: if (chk_2_3) {
 			status(1) = 2
+		} else: if (chk_2_4) {
+			status(1) = 3
 		}
 
 		repeat 2
@@ -298,14 +367,16 @@
 			color 0, 0, 0
 			boxf
 
-			// ÉAÉXÉyÉNÉgî‰
-			cur_aspect = double(target_w(status(cnt))) / target_h(status(cnt))
-
-			// âÊñ èoóÕ
-			if (cur_aspect < ASPECT) {
-				StretchBlt out_hdc(cnt), double(ginfo_dispx) / 2 - double(ginfo_dispy) * cur_aspect / 2, 0, double(ginfo_dispy) * cur_aspect, ginfo_dispy, target_hdc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
-			} else {
-				StretchBlt out_hdc(cnt), 0, double(ginfo_dispy) / 2 - double(ginfo_dispx) / cur_aspect / 2, ginfo_dispx, double(ginfo_dispx) / cur_aspect, target_hdc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
+			if (status(cnt) != 3) {
+				// ÉAÉXÉyÉNÉgî‰
+				cur_aspect = double(target_w(status(cnt))) / target_h(status(cnt))
+	
+				// âÊñ èoóÕ
+				if (cur_aspect < ASPECT) {
+					StretchBlt out_hdc(cnt), double(ginfo_dispx) / 2 - double(ginfo_dispy) * cur_aspect / 2, 0, double(ginfo_dispy) * cur_aspect, ginfo_dispy, target_hdc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
+				} else {
+					StretchBlt out_hdc(cnt), 0, double(ginfo_dispy) / 2 - double(ginfo_dispx) / cur_aspect / 2, ginfo_dispx, double(ginfo_dispx) / cur_aspect, target_hdc(status(cnt)), 0, 0, target_w(status(cnt)), target_h(status(cnt)), 0x00CC0020 | 0x40000000
+				}
 			}
 
 			redraw 1
